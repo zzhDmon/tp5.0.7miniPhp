@@ -9,6 +9,7 @@
 namespace app\api\controller\v1;
 
 use app\api\service\AppToken;
+use app\api\service\UserToken;
 use app\api\service\Token as TokenService;
 use app\api\validate\AppTokenGet;
 use app\api\validate\TokenGet;
@@ -24,7 +25,7 @@ class Token
      */
     public function getToken($code='')
     {
-        return $code;
+//        return $code;
         (new TokenGet())->goCheck();
         $wx = new UserToken($code);
         $token = $wx->get();

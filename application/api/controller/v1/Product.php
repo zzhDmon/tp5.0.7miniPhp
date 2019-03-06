@@ -61,4 +61,22 @@ class Product
             ->toArray();
         return $data;
     }
+    /**
+     * 获取商品详情
+     * 如果商品详情信息很多，需要考虑分多个接口分布加载
+     * @url /product/:id
+     * @param int $id 商品id号
+     * @return Product
+     * @throws ProductException
+     */
+    public function getOne($id)
+    {
+        (new IDMustBePositiveInt())->goCheck();
+        $product = ProductModel::getProductDetail($id);
+        if (!$product)
+        {
+            throw new ProductException();
+        }
+        return $product;
+    }
 }

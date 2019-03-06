@@ -15,7 +15,7 @@ use app\lib\exception\WeChatException;
 use think\Exception;
 use think\Model;
 
-class UserToken
+class UserToken extends Token
 {
     protected $code;
     protected $wxLoginUrl;
@@ -41,7 +41,6 @@ class UserToken
     public function get()
     {
         $result = curl_get($this->wxLoginUrl);
-
         // 注意json_decode的第一个参数true
         // 这将使字符串被转化为数组而非对象
 
