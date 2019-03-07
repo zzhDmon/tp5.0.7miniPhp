@@ -72,6 +72,7 @@ class Product extends BaseModel
         //            ->find($id);
         //        return $product;
 
+//按照关联的imgs.imgUrl 来排序
         $product = self::with(
             [
                 'imgs' => function ($query)
