@@ -10,6 +10,6 @@ namespace app\api\model;
 
 class OrderProduct extends BaseModel
 {
-//    自动写入时间
-    protected $autoWriteTimestamp = true;
+//    自动写入时间  数据表没有create_time字段
+//    protected $autoWriteTimestamp = true;
 }

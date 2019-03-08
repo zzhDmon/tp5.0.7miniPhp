@@ -63,6 +63,7 @@ class Order
     }
 
     /**
+     * 根据订单号 查询oProduct（提交请求商品） 和 products（实际商品）
      * @param string $orderNo 订单号
      * @return array 订单商品状态
      * @throws Exception
@@ -84,7 +85,7 @@ class Order
         $status = $this->getOrderStatus();
         return $status;
     }
-
+    //    交货
     public function delivery($orderID, $jumpPage = '')
     {
         $order = OrderModel::where('id', '=', $orderID)
@@ -197,6 +198,11 @@ class Order
     // 如果预扣除了库存量需要队列支持，且需要使用锁机制
     private function createOrderByTrans($snap)
     {
+        /**
+         * Db::startTrans();和Db::commit(); 组成一个事务
+         *  Db::rollback();撤销
+         */
+        Db::startTrans();
         try {
             $orderNo = $this->makeOrderNo();
             $order = new OrderModel();
@@ -218,12 +224,15 @@ class Order
             }
             $orderProduct = new OrderProduct();
             $orderProduct->saveAll($this->oProducts);//中间表order_product保存
+
+            Db::commit();
             return [
                 'order_no' => $orderNo,
                 'order_id' => $orderID,
                 'create_time' => $create_time
             ];
         } catch (Exception $ex) {
+            Db::rollback();
             throw $ex;
         }
     }

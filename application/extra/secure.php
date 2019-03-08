@@ -6,5 +6,6 @@
  * Time: 11:27
  */
 return[
-  "token_salt" => "DAJDISjdka45d"
+  "token_salt" => "DAJDISjdka45d",
+    "pay_back_url" => "http://qq.com"
 ];
